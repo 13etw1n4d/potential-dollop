@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <style>
+      /* CSS for styling the slot machine */
+      .slot-machine {
+        width: 500px;
+        height: 300px;
+        border: 1px solid black;
+        margin: 0 auto;
+      }
+      .slot {
+        width: 100px;
+        height: 100px;
+        float: left;
+        border: 1px solid black;
+        background-color: white;
+        text-align: center;
+        font-size: 40px;
+        line-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slot-machine">
+      <div class="slot" id="slot1"></div>
+      <div class="slot" id="slot2"></div>
+      <div class="slot" id="slot3"></div>
+    </div>
+    <button onclick="spin()">Spin</button>
+    <script>
+      // JavaScript for the slot machine functionality
+      var slot1 = document.getElementById("slot1");
+      var slot2 = document.getElementById("slot2");
+      var slot3 = document.getElementById("slot3");
+      var slotArray = [slot1, slot2, slot3];
+      var spinResult;
+
+      function spin() {
+        spinResult = Math.floor(Math.random() * 10);
+        for (var i = 0; i < slotArray.length; i++) {
+          slotArray[i].innerHTML = spinResult;
+        }
+      }
+    </script>
+  </body>
+</html>
