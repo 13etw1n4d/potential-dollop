@@ -1,0 +1,92 @@
+<form id="login-form">
+  <label>Username:</label>
+  <input type="text" id="username" name="username">
+  <label>Password:</label>
+  <input type="password" id="password" name="password">
+  <button type="submit" onclick="login()">Login</button>
+</form>
+
+<script>
+  function login() {
+    // Collect the username and password from the form
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    // Send a POST request to the server with the username and password
+    fetch("login.php", {
+      method: "POST",
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+    .then(response => response.text())
+    .then(data => {
+      // Handle the server's response
+      if (data === "success") {
+        // The login was successful, save the game
+        saveGame();
+      } else {
+        // The login was unsuccessful, display an error message
+        alert("Invalid username or password");
+      }
+    });
+  }
+
+  function saveGame() {
+    // Collect the game data
+    var gameData = {
+      score: currentScore,
+      coins: currentCoins,
+      level: currentLevel
+    };
+
+    // Send a POST request to the server with the game data
+    fetch("savegame.php", {
+      method: "POST",
+      body: JSON.stringify(gameData)
+    })
+    .then(response => response.text())
+    .then(data => {
+      // Handle the server's response
+      if (data === "success") {
+        alert("Game saved successfully");
+      } else {
+        alert("Error saving game");
+      }
+    });
+  }
+</script>
+
+
+//PHP:
+
+<?php
+  $username = $_POST["username"];
+  $password = $_POST["password"];
+
+  // Connect to the database
+  $conn = new mysqli("host", "username", "password", "database");
+
+  // Check if the username and password match a record in the database
+  $result = $conn->query("SELECT * FROM users WHERE username='$username' AND password='$password'");
+  if ($result->num_rows > 0) {
+    // The login was successful
+    echo "success";
+  } else {
+    // The login was unsuccessful
+    echo "failure";
+  }
+?>
+
+<?php
+  $score = $_POST["score"];
+  $coins = $_POST["coins"];
+  $level = $_POST["level"];
+  $username = $_SESSION["username"];
+
+  // Connect to the database
+  $conn = new mysqli("host", "username", "password", "database");
+
+  // Save the game data to the database
+  $conn->
