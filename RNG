@@ -1,0 +1,39 @@
+let slotOne = Math.floor(Math.random() * 10);
+let slotTwo = Math.floor(Math.random() * 10);
+let slotThree = Math.floor(Math.random() * 10);
+
+console.log("| " + slotOne + " | " + slotTwo + " | " + slotThree + " |");
+
+if (slotOne === slotTwo && slotTwo === slotThree) {
+  console.log("You win! All three slots match!");
+} else {
+  console.log("Better luck next time. Try again.");
+}
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+console.log(getRandomNumber(1, 10));
+let usedNumbers = [];
+
+function getRandomNumber(min, max) {
+  let randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+
+  while (usedNumbers.includes(randomNumber)) {
+    randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  usedNumbers.push(randomNumber);
+  return randomNumber;
+}
+
+console.log(getRandomNumber(1, 10));
+console.log(getRandomNumber(1, 10));
+console.log(getRandomNumber(1, 10));
+console.log(getRandomNumber(1, 10));
+console.log(getRandomNumber(1, 10));
+
+//In this example, the usedNumbers array keeps track of the numbers that have already been generated. The getRandomNumber function generates a random number as before, but this time it uses a while loop to check if the generated number has already been used. If it has, the loop continues to generate new numbers until it finds one that hasn't been used before. The newly generated number is then added to the usedNumbers array and returned. This ensures that every number between min and max is generated exactly once before the function starts generating the same numbers again.
+
+
+
